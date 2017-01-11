@@ -2,16 +2,7 @@ var mocky = require('mocky');
 var uuid = require('uuid/v1');
 var log4js = require('log4js');
 
-log4js.configure({
-     appenders: [
-         {
-             "type": "file",
-             "category": "request",
-             "filename": "logs/request.log",
-             "pattern": "-yyyy-MM-dd"
-         }
-    ]
-});
+log4js.configure('log4js.config.json');
 var logger = log4js.getLogger('request');
 mocky.createServer([{
 // simple GET route without request body to match
