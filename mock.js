@@ -1,14 +1,18 @@
 var mocky = require('mocky');
 var uuid = require('uuid/v1');
 var log4js = require('log4js');
+var fs = require('fs');
 
 log4js.configure('log4js.config.json');
 var logger = log4js.getLogger('request');
 mocky.createServer([{
 // simple GET route without request body to match
     url: '/someurl1?a=b&c=d',
-    method: 'get',
-    res: 'response for GET request'
+    method: 'post',
+    res: function(req, res) {
+        // return 'test';
+        return fs.readFileSync('./responses/someurl1.json', 'utf8');
+    }
 }, {
 // POST route with request body to match and respose with status, headers and body
     url: '/someurl2?a=b&c=d',
